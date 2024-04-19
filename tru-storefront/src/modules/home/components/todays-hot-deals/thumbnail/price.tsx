@@ -1,8 +1,8 @@
 import { Text, clx } from "@medusajs/ui"
 
-import { PriceType } from "../product-actions"
+import { PriceType } from "@modules/products/components/product-actions"
 
-export default function PreviewPrice({ price }: { price: PriceType }) {
+export default function HotDealsPreviewPrice({ price }: { price: PriceType }) {
   return (
     <>
       {price.price_type === "sale" && (
@@ -22,7 +22,7 @@ export default function PreviewPrice({ price }: { price: PriceType }) {
         )}
         data-testid="price"
       >
-        <p className="text-lg text-green-700 font-semibold">
+        <p className="text-md text-white font-semibold">
           {price.calculated_price}
         </p>
       </div>

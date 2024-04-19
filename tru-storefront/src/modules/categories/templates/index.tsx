@@ -49,7 +49,7 @@ export default function CategoryTemplate({
         </div>
         {category.description && (
           <div className="mb-8 text-base-regular">
-            <p>{category.description}</p>
+            {category.description}
           </div>
         )}
         {category.category_children && (

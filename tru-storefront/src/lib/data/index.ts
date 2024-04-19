@@ -16,7 +16,7 @@ import { cache } from "react"
 import sortProducts from "@lib/util/sort-products"
 import transformProductPreview from "@lib/util/transform-product-preview"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import { ProductCategoryWithChildren, ProductPreviewType } from "types/global"
+import { ProductCategoryWithChildren, ProductCollectionWithPreviews, ProductPreviewType } from "types/global"
 
 import { medusaClient } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
@@ -437,6 +437,20 @@ export const retrievePricedProductById = cache(async function ({
       return null
     })
 })
+
+export const  getProductRailData = async ({ collection, region }: {
+  collection: ProductCollectionWithPreviews[];
+  region: Region;
+}) => {
+  const pricedProducts = await Promise.all(
+    collection.flatMap((collection) =>
+      collection.products.map(async (product) =>
+        retrievePricedProductById({ id: product.id, regionId: region.id })
+      )
+    )
+  );
+  return pricedProducts
+}
 
 export const getProductByHandle = cache(async function (
   handle: string

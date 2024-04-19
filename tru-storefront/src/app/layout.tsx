@@ -1,4 +1,6 @@
+import QueryClientWrapper from "@modules/providers"
 import { Metadata } from "next"
+
 import "styles/globals.css"
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://localhost:8000"
@@ -11,7 +13,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light">
       <body>
+        <QueryClientWrapper>
         <main className="relative">{props.children}</main>
+        </QueryClientWrapper>
       </body>
     </html>
   )

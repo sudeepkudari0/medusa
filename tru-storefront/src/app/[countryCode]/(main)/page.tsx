@@ -1,11 +1,19 @@
 import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 
-import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
+import {
+  getCollectionsList,
+  getProductRailData,
+  getProductsList,
+  getRegion,
+} from "@lib/data"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { ProductCollectionWithPreviews } from "types/global"
 import { cache } from "react"
+import DetoxSynergyBlendPromo from "@modules/home/components/detox-synergy-blend-promo"
+import EnergySynergyBlendPromo from "@modules/home/components/energy-synergy-blend-promo"
+import TodaysHotDeals from "@modules/home/components/todays-hot-deals"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -17,7 +25,7 @@ const getCollectionsWithProducts = cache(
   async (
     countryCode: string
   ): Promise<ProductCollectionWithPreviews[] | null> => {
-    const { collections } = await getCollectionsList(0, 3)
+    const { collections } = await getCollectionsList(0, 4)
 
     if (!collections) {
       return null
@@ -66,13 +74,24 @@ export default async function Home({
     return null
   }
 
+  const data = await getProductRailData({ collection: collections, region })
+
   return (
     <>
       <Hero />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+          <FeaturedProducts
+            collections={collections}
+            region={region}
+            allProductsData={data}
+          />
         </ul>
+        <DetoxSynergyBlendPromo />
+        <div className="w-full bg-gray-200">
+        <TodaysHotDeals collections={collections} allProductsData={data} region={region} />
+        </div>
+        <EnergySynergyBlendPromo />
       </div>
     </>
   )

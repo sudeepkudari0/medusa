@@ -1,7 +1,8 @@
 import { getProductsListWithSort, getRegion } from "@lib/data"
-import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import ProductPreview from "./product-preview"
+import { Region } from "@medusajs/medusa"
 
 const PRODUCT_LIMIT = 12
 
@@ -27,7 +28,8 @@ export default async function PaginatedProducts({
   productsIds?: string[]
   countryCode: string
 }) {
-  const region = await getRegion(countryCode)
+  
+  const region: any = await getRegion(countryCode)
 
   if (!region) {
     return null
@@ -57,13 +59,13 @@ export default async function PaginatedProducts({
     sortBy,
     countryCode,
   })
-
+  console.log(products[0])
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
   return (
     <>
-      <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8" data-testid="products-list">
-        {products.map((p) => {
+ <ul className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8" data-testid="products-list">
+          {products.map((p) => {
           return (
             <li key={p.id}>
               <ProductPreview productPreview={p} region={region} />

@@ -63,6 +63,12 @@ const plugins = [
       // other options...
     },
   },
+  {
+    resolve: '@medusajs/file-local',
+    options: {
+      backend_url: process.env.MEDUSA_ADMIN_BACKEND_URL || "http://localhost:9000",
+    }
+  }
 ];
 
 const modules = {
@@ -93,9 +99,7 @@ const projectConfig = {
 
 /** @type {import('@medusajs/medusa').ConfigModule} */
 module.exports = {
-  projectConfig: {
-    database_extra: { ssl: { rejectUnauthorized: false } },
-  },
+  projectConfig,
   plugins,
   modules,
   featureFlags: {

@@ -9,6 +9,7 @@ import { placeOrder } from "@modules/checkout/actions"
 import React, { useState } from "react"
 import ErrorMessage from "../error-message"
 import Spinner from "@modules/common/icons/spinner"
+import { RazorpayPaymentButton } from "./razorpay-payment-button"
 
 type PaymentButtonProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">,
@@ -34,6 +35,8 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ cart, 'data-testid': data
       return <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
     case "paypal":
       return <PayPalPaymentButton notReady={notReady} cart={cart} data-testid={dataTestId} />
+    case "razorpay": 
+      return <RazorpayPaymentButton session={paymentSession} notReady={notReady} cart={cart} />
     default:
       return <Button disabled>Select a payment method</Button>
   }

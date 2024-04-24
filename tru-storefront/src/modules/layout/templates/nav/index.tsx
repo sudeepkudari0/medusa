@@ -6,11 +6,12 @@ import { Suspense } from "react"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import Image from "next/image"
-import CategoriesDropDown from "@modules/layout/components/categories"
 import { cn } from "@lib/utils"
 import { FaCartShopping } from "react-icons/fa6"
 import { FaRegHeart } from "react-icons/fa6"
 import SearchBarLg from "@modules/layout/components/search-bar-lg"
+import { CategoriesDropDown } from "@modules/layout/components/categories"
+
 export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false)
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function Nav() {
                 alt="Logo"
                 className={cn(
                   "w-[200px] h-[80px] lg:ml-[100px]",
-                  isScrolled ? "w-[130px] h-[50px]" : "w-[200px] h-[80px]"
+                  isScrolled ? "w-[110px] h-[50px]" : "w-[200px] h-[80px]"
                 )}
               />
             </LocalizedClientLink>
@@ -72,7 +73,7 @@ export default function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  <FaCartShopping /> (0)
+                  <FaCartShopping color="#4cd96b" /> (0)
                 </LocalizedClientLink>
               }
             >
@@ -85,24 +86,24 @@ export default function Nav() {
         <div className="flex items-center justify-center w-[400px]">
           <CategoriesDropDown />
         </div>
-        <div className="flex flex-row items-center justify-center w-full gap-4">
+        <div className="flex flex-row text-sm items-center justify-center w-full gap-4">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
+            className="hover:text-green-600"
             href="/account"
             data-testid="nav-account-link"
           >
             MY ACCOUNT
           </LocalizedClientLink>
-          <LocalizedClientLink className="hover:text-ui-fg-base" href="/">
+          <LocalizedClientLink className="hover:text-green-600" href="/">
             HOME
           </LocalizedClientLink>
-          <LocalizedClientLink className="hover:text-ui-fg-base" href="/store">
+          <LocalizedClientLink className="hover:text-green-600" href="/store">
             SHOP
           </LocalizedClientLink>
-          <LocalizedClientLink className="hover:text-ui-fg-base" href="/">
+          <LocalizedClientLink className="hover:text-green-600" href="/">
             ABOUT US
           </LocalizedClientLink>
-          <LocalizedClientLink className="hover:text-ui-fg-base" href="/">
+          <LocalizedClientLink className="hover:text-green-600" href="/">
             CONTACT US
           </LocalizedClientLink>
         </div>

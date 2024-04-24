@@ -20,6 +20,8 @@ import { SubmitButton } from "../submit-button"
 import { useFormState } from "react-dom"
 import ErrorMessage from "../error-message"
 import compareAddresses from "@lib/util/compare-addresses"
+import { FcApproval } from "react-icons/fc"
+import { MdEdit } from "react-icons/md"
 
 const Addresses = ({
   cart,
@@ -54,19 +56,19 @@ const Addresses = ({
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
-          className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
+          className="flex flex-row text-3xl text-gray-500 gap-x-2 items-baseline"
         >
           Shipping Address
-          {!isOpen && <CheckCircleSolid />}
+          {!isOpen && <FcApproval size={24} />}
         </Heading>
         {!isOpen && cart?.shipping_address && (
           <Text>
             <button
               onClick={handleEdit}
-              className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+              className="!text-green-500 hover:text-green-600"
               data-testid="edit-address-button"
             >
-              Edit
+              <MdEdit size={20} color="green" />
             </button>
           </Text>
         )}
@@ -94,7 +96,7 @@ const Addresses = ({
                 <BillingAddress cart={cart} countryCode={countryCode} />
               </div>
             )}
-            <SubmitButton className="mt-6" data-testid="submit-address-button">Continue to delivery</SubmitButton>
+            <SubmitButton variant={'transparent'} className="mt-6 bg-green-500 hover:bg-green-600" data-testid="submit-address-button">Continue to delivery</SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
         </form>

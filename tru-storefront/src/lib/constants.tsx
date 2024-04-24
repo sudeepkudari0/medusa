@@ -30,6 +30,11 @@ export const paymentInfoMap: Record<
     title: "Test payment",
     icon: <CreditCard />,
   },
+  razorpay: {
+    title: "Razorpay",
+    icon: <CreditCard />,
+  },
+
   // Add more payment providers here
 }
 

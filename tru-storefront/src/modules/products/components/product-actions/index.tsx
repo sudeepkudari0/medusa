@@ -14,6 +14,8 @@ import OptionSelect from "@modules/products/components/option-select"
 
 import MobileActions from "../mobile-actions"
 import ProductPrice from "../product-price"
+import CartItemSelect from "@modules/cart/components/cart-item-select"
+import { useQueryClient } from "@tanstack/react-query"
 
 type ProductActionsProps = {
   product: PricedProduct
@@ -35,8 +37,9 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string>>({})
   const [isAdding, setIsAdding] = useState(false)
-
+  const [quantity, setQuantity] = useState(1)
   const countryCode = useParams().countryCode as string
+  const queryClient = useQueryClient();
 
   const variants = product.variants
 
@@ -118,10 +121,10 @@ export default function ProductActions({
 
     await addToCart({
       variantId: variant.id,
-      quantity: 1,
+      quantity: quantity,
       countryCode,
     })
-
+    queryClient.invalidateQueries(['customCart'])
     setIsAdding(false)
   }
 
@@ -149,14 +152,28 @@ export default function ProductActions({
             </div>
           )}
         </div>
-
-        <ProductPrice product={product} variant={variant} region={region} />
-
+        <div className="flex flex-row">
+        <div className="flex gap-2 items-center w-28">
+            <CartItemSelect
+              value={quantity}
+              onChange={(value) => setQuantity(parseInt(value.target.value))}
+              className="w-14 h-10 p-4"
+              data-testid="product-select-button"
+            >
+              {Array.from({ length: 10 },
+                (_, i) => (
+                  <option value={i + 1} key={i}>
+                    {i + 1}
+                  </option>
+                )
+              )}
+            </CartItemSelect>
+          </div>
         <Button
           onClick={handleAddToCart}
           disabled={!inStock || !variant || !!disabled || isAdding}
           variant="primary"
-          className="w-full h-10"
+          className="w-[200px] text-lg bg-green-700 !border-none !outline-none hover:bg-green-500 h-10"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
@@ -166,6 +183,7 @@ export default function ProductActions({
             ? "Out of stock"
             : "Add to cart"}
         </Button>
+        </div>
         <MobileActions
           product={product}
           variant={variant}

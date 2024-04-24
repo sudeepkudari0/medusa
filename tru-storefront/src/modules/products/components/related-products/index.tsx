@@ -3,7 +3,7 @@ import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 
 import { getProductsList, getRegion } from "@lib/data"
 
-import ProductPreview from "../product-preview"
+import ProductPreview from "../custom/product-preview"
 
 type RelatedProductsProps = {
   product: PricedProduct
@@ -41,8 +41,9 @@ export default async function RelatedProducts({
     }
 
     params.is_giftcard = false
-
+    console.log(params)
     return params
+
   }
 
   const queryParams = setQueryParams()
@@ -72,11 +73,11 @@ export default async function RelatedProducts({
       </div>
 
       <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
-        {/* {productPreviews.map((productPreview) => (
-          <li key={productPreview.id}>
+        {productPreviews.map((productPreview) => (
+          <li key={productPreview.id} className="w-[280px]">
             <ProductPreview region={region} productPreview={productPreview} />
           </li>
-        ))} */}
+        ))}
       </ul>
     </div>
   )

@@ -1,12 +1,14 @@
 "use client"
 
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
+import { clx } from "@medusajs/ui"
 
 import Back from "@modules/common/icons/back"
 import FastDelivery from "@modules/common/icons/fast-delivery"
 import Refresh from "@modules/common/icons/refresh"
-
-import Accordion from "./accordion"
+import { useState } from "react"
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs"
+import "react-tabs/style/react-tabs.css"
 
 type ProductTabsProps = {
   product: PricedProduct
@@ -15,8 +17,12 @@ type ProductTabsProps = {
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = [
     {
-      label: "Product Information",
+      label: "Description",
       component: <ProductInfoTab product={product} />,
+    },
+    {
+      label: "Reviews",
+      // component: <ReviewsTab />,
     },
     {
       label: "Shipping & Returns",
@@ -24,20 +30,37 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
     },
   ]
 
+  const [activeTabIndex, setActiveTabIndex] = useState(0)
+
   return (
-    <div className="w-full">
-      <Accordion type="multiple">
-        {tabs.map((tab, i) => (
-          <Accordion.Item
-            key={i}
-            title={tab.label}
-            headingSize="medium"
-            value={tab.label}
-          >
+    <div className="w-full lg:px-[150px]">
+      <Tabs
+        defaultIndex={activeTabIndex}
+        selectedIndex={activeTabIndex}
+        onSelect={(index) => setActiveTabIndex(index)}
+      >
+        <TabList>
+          <div className="flex flex-row w-full items-center justify-center space-x-8">
+            {tabs.map((tab, index) => (
+              <Tab
+                key={index}
+                value={index}
+                className={clx(
+                  "cursor-pointer outline-none pt-1 border-b-2 pb-2 font-bold",
+                  index === activeTabIndex ? '!text-green-500 !border-green-600' : 'border-transparent'
+                )}
+              >
+                {tab.label}
+              </Tab>
+            ))}
+          </div>
+        </TabList>
+        {tabs.map((tab, index) => (
+          <TabPanel key={index} value={index} className="border-none">
             {tab.component}
-          </Accordion.Item>
+          </TabPanel>
         ))}
-      </Accordion>
+      </Tabs>
     </div>
   )
 }
@@ -45,11 +68,11 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
 const ProductInfoTab = ({ product }: ProductTabsProps) => {
   return (
     <div className="text-small-regular py-8">
-      <div className="grid grid-cols-2 gap-x-8">
+      <div className="grid grid-cols-2 text-md gap-x-8">
         <div className="flex flex-col gap-y-4">
           <div>
             <span className="font-semibold">Material</span>
-            <p>{product.material ? product.material : "-"}</p>
+            <p>{product ? product.material : "-"}</p>
           </div>
           <div>
             <span className="font-semibold">Country of origin</span>

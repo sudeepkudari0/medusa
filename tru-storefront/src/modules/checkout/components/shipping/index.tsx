@@ -14,6 +14,8 @@ import ErrorMessage from "@modules/checkout/components/error-message"
 import { setShippingMethod } from "@modules/checkout/actions"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+import { FcApproval } from "react-icons/fc";
+import { MdEdit } from "react-icons/md"
 
 type ShippingProps = {
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
@@ -69,7 +71,7 @@ const Shipping: React.FC<ShippingProps> = ({
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row text-3xl text-gray-500 gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && cart.shipping_methods.length === 0,
@@ -77,7 +79,7 @@ const Shipping: React.FC<ShippingProps> = ({
           )}
         >
           Delivery
-          {!isOpen && cart.shipping_methods.length > 0 && <CheckCircleSolid />}
+          {!isOpen && cart.shipping_methods.length > 0 && <FcApproval size={24} />}
         </Heading>
         {!isOpen &&
           cart?.shipping_address &&
@@ -86,10 +88,10 @@ const Shipping: React.FC<ShippingProps> = ({
             <Text>
               <button
                 onClick={handleEdit}
-                className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+                className="!text-green-500 hover:text-green-600"
                 data-testid="edit-delivery-button"
               >
-                Edit
+                <MdEdit size={20} color="green" />
               </button>
             </Text>
           )}
@@ -148,7 +150,8 @@ const Shipping: React.FC<ShippingProps> = ({
 
           <Button
             size="large"
-            className="mt-6"
+            className="mt-6 bg-green-500 hover:bg-green-600 text-white"
+            variant={'transparent'}
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={!cart.shipping_methods[0]}

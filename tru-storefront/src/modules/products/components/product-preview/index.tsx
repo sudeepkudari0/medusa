@@ -34,10 +34,10 @@ export default function ProductPreview({
         <Thumbnail
           productPreview={productPreview}
           thumbnail={productPreview?.thumbnail}
-          size="full"
+          size="small"
           isFeatured={isFeatured}
         />
-        <div className="flex flex-col mt-4 text-center text-sm font-medium" onClick={() => router.push(`/products/${productPreview?.handle}`)}>
+        <div className="flex flex-col w-auto mt-4 text-center text-sm font-medium" onClick={() => router.push(`/products/${productPreview?.handle}`)}>
           <Text className="" data-testid="product-title">
             {productPreview?.title}
           </Text>

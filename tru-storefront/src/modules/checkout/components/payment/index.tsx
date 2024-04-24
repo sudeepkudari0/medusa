@@ -16,6 +16,8 @@ import PaymentContainer from "@modules/checkout/components/payment-container"
 import { setPaymentMethod } from "@modules/checkout/actions"
 import { paymentInfoMap } from "@lib/constants"
 import { StripeContext } from "@modules/checkout/components/payment-wrapper"
+import { FcApproval } from "react-icons/fc"
+import { MdEdit } from "react-icons/md";
 
 const Payment = ({
   cart,
@@ -105,7 +107,7 @@ const Payment = ({
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row text-3xl text-gray-500 gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && !paymentReady,
@@ -113,16 +115,16 @@ const Payment = ({
           )}
         >
           Payment
-          {!isOpen && paymentReady && <CheckCircleSolid />}
+          {!isOpen && paymentReady && <FcApproval size={24} />}
         </Heading>
         {!isOpen && paymentReady && (
           <Text>
             <button
               onClick={handleEdit}
-              className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+              className="!text-green-500 hover:text-green-600"
               data-testid="edit-payment-button"
             >
-              Edit
+              <MdEdit size={20} color="green" />
             </button>
           </Text>
         )}
@@ -176,8 +178,9 @@ const Payment = ({
 
             <Button
               size="large"
-              className="mt-6"
+              className="mt-6 bg-green-500 hover:bg-green-600 text-white"
               onClick={handleSubmit}
+              variant={'transparent'}
               isLoading={isLoading}
               disabled={(isStripe && !cardComplete) || !cart.payment_session}
               data-testid="submit-payment-button"

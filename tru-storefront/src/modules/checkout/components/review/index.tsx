@@ -26,7 +26,7 @@ const Review = ({
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row text-3xl text-gray-500 gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none": !isOpen,
             }
@@ -42,7 +42,7 @@ const Review = ({
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
                 By clicking the Place Order button, you confirm that you have
                 read, understand and accept our Terms of Use, Terms of Sale and
-                Returns Policy and acknowledge that you have read Medusa
+                Returns Policy and acknowledge that you have read Tru
                 Store&apos;s Privacy Policy.
               </Text>
             </div>

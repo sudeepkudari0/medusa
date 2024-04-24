@@ -1,9 +1,7 @@
 "use client"
 
 import { DropdownMenu } from "@medusajs/ui"
-import { useParams } from "next/navigation"
-import { useEffect, useState } from "react"
-import dynamic from "next/dynamic"
+import { useState } from "react"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { IoMdArrowDropdown } from "react-icons/io"
 
@@ -40,34 +38,13 @@ export const Categories = [
   },
 ]
 
-const CategoriesDropDown = () => {
-  const params = useParams()
-  const [isOpen, setIsOpen] = useState(true)
-  const isLgScreen = window.innerWidth >= 992
-  useEffect(() => {
-    const isInRoute = window.location.pathname.endsWith("/in")
-    const handleScroll = () => {
-      if (
-        window.scrollY === 0 &&
-        Object.keys(params).length < 2 &&
-        isInRoute &&
-        isLgScreen
-      ) {
-        setIsOpen(true)
-      } else {
-        setIsOpen(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [isLgScreen, params])
-
+export const CategoriesDropDown = () => {
+  const [isOpen, setIsOpen] = useState(false)
+ 
   return (
-    <div className="w-[256px]">
+    <div className="w-[256px]" 
+    onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}>
       <DropdownMenu modal={false} open={isOpen}>
         <DropdownMenu.Trigger
           className="outline-none border p-[6px] flex flex-row items-center justify-center gap-4"
@@ -89,7 +66,3 @@ const CategoriesDropDown = () => {
     </div>
   )
 }
-
-export default dynamic(() => Promise.resolve(CategoriesDropDown), {
-  ssr: false,
-})

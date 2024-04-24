@@ -58,7 +58,7 @@ const SearchBarLg = () => {
   const CustomDropdownIndicator = () => null
 
   return (
-    <div className="relative flex items-center px-20">
+    <div className="relative flex items-center pl-[200px]">
       <AsyncSelect
         loadOptions={loadOptions}
         placeholder="Search Products"
@@ -71,7 +71,7 @@ const SearchBarLg = () => {
           setSelectedHandle(e.handle)
           setSearchValue(e.label)
         }}
-        className="w-[500px] border h-[35px] border-r-0 rounded-none border-gray-400 !outline-none"
+        className="w-[23vw] border h-[35px] border-r-0 rounded-none border-gray-400 !outline-none"
         styles={{
           indicatorSeparator: () => ({ display: "none" }),
           control: () => ({

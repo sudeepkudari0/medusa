@@ -84,14 +84,14 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                 <div className="flex items-end gap-x-2 text-ui-fg-base">
                   {selectedPrice.price_type === "sale" && (
                     <p>
-                      <span className="line-through text-small-regular">
+                      <span className="line-through font-semibold text-xl text-gray-300">
                         {selectedPrice.original_price}
                       </span>
                     </p>
                   )}
                   <span
                     className={clx({
-                      "text-ui-fg-interactive":
+                      "font-semibold text-2xl text-green-600":
                         selectedPrice.price_type === "sale",
                     })}
                   >
@@ -121,7 +121,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
               <Button
                 onClick={handleAddToCart}
                 disabled={!inStock || !variant}
-                className="w-full"
+                className="w-full text-lg bg-green-700 !border-none !outline-none hover:bg-green-500"
                 isLoading={isAdding}
                 data-testid="mobile-cart-button"
               >

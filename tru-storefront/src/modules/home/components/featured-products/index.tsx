@@ -3,7 +3,6 @@
 import { Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { Text, clx } from "@medusajs/ui"
-import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
 import { ProductCollectionWithPreviews } from "types/global"
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs"

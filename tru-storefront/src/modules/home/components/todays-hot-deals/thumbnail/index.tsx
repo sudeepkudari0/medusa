@@ -42,6 +42,7 @@ const HotDealsThumbnail: React.FC<ThumbnailProps> = ({
   const [isAdding, setIsAdding] = React.useState(false)
   const [showAddToCart, setShowAddToCart] = useState(false)
   const [showAddBasket, setShowAddBasket] = useState(false)
+  const [onHover, setOnHover] = useState(false)
 
   const countryCode = useParams().countryCode as string
   const queryClient = useQueryClient()
@@ -53,16 +54,18 @@ const HotDealsThumbnail: React.FC<ThumbnailProps> = ({
 
   const handleAddToCart = async () => {
     if (!productPreview?.variants[0]?.id) return null
-
+    setShowAddBasket(true)
     setIsAdding(true)
 
     await addToCart({
       variantId: productPreview.variants[0]?.id,
       quantity: 1,
-      countryCode,
+      countryCode
     })
-    queryClient.invalidateQueries(["customCart"])
+    queryClient.invalidateQueries(['customCart'])
     setIsAdding(false)
+    setShowAddBasket(false)
+    setShowAddToCart(false)
   }
   return (
     <Container
@@ -91,12 +94,18 @@ const HotDealsThumbnail: React.FC<ThumbnailProps> = ({
       </LocalizedClientLink>
       {(productPreview?.metadata?.discount as string) && (
         <span
-          className={`absolute top-0 left-0 mt-3 ml-3 py-2 px-1 pl-0 text-sm font-medium text-white  bg-green-500 rounded-full shadow-sm`} // Tailwind classes for badge styling
+          className={`absolute top-0 left-0 mt-3 ml-3 py-2 px-1 pl-0 text-sm font-medium text-white  bg-green-500 rounded-full shadow-sm`}
         >
           -{productPreview?.metadata?.discount as string}%
         </span>
       )}
-      <div className="absolute flex justify-center items-center w-full h-full hover:bg-opacity-50 hover:bg-black z-10">
+      <div className={clx('absolute flex justify-center items-center w-full h-full z-10',
+        onHover && 'hover:bg-opacity-50 hover:bg-black'
+      )} 
+      onMouseEnter={() => setOnHover(true)}
+      onMouseLeave={() => {
+        if (!isAdding) setOnHover(false)
+      }}>
         <LocalizedClientLink
           href={`/products/${productPreview?.handle}`}
           className={clx(
@@ -135,14 +144,16 @@ const HotDealsThumbnail: React.FC<ThumbnailProps> = ({
           type="button"
           disabled={isAdding}
           className={clx(
-            "absolute min-w-[100px] mx-4 top-[220px] h-[40px] border-t-2 border-white text-white text-md font-bold z-10 transition-all duration-300 ease-out transform hover:block",
+            "absolute min-w-[100px] mx-4 top-[220px] h-[40px] text-white text-md font-bold z-10 transition-all duration-300 ease-out transform hover:block",
             showAddToCart
               ? "translate-y-0 opacity-100"
               : "translate-y-full opacity-0",
             showAddBasket && " -translate-y-full opacity-0"
           )}
           onMouseEnter={() => setShowAddBasket(true)}
-          onMouseLeave={() => setShowAddBasket(false)}
+          onMouseLeave={() => {
+            if (!isAdding) setShowAddBasket(false)
+          }}
         >
           Add to Cart
         </button>
@@ -151,13 +162,15 @@ const HotDealsThumbnail: React.FC<ThumbnailProps> = ({
           onClick={handleAddToCart}
           disabled={isAdding}
           className={clx(
-            "absolute px-4 h-[40px] min-w-[100px] top-[220px] border-b-2 border-white text-white text-md font-bold z-10 transition-all duration-300 ease-out transform",
+            "absolute px-4 h-[40px] min-w-[100px] top-[220px] text-white text-md font-bold z-10 transition-all duration-300 ease-out transform",
             showAddBasket
               ? "translate-y-0 opacity-100"
-              : "translate-y-full opacity-0" // Removed "top-50"
+              : "translate-y-full opacity-0"
           )}
           onMouseMove={() => setShowAddBasket(true)}
-          onMouseLeave={() => setShowAddBasket(false)}
+          onMouseLeave={() => {
+            if (!isAdding) setShowAddBasket(false)
+          }}
         >
           {isAdding ? (
             <ClipLoader color="white" size={24} />

@@ -83,7 +83,7 @@ export const RazorpayPaymentButton = ({
   return (
     <>
       <Button
-        variant={'transparent'}
+        variant={'secondary'}
         className=" bg-green-500 hover:bg-green-600 text-white "
         disabled={submitting || notReady}
         onClick={handlePayment}

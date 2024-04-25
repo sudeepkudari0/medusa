@@ -151,7 +151,7 @@ const Shipping: React.FC<ShippingProps> = ({
           <Button
             size="large"
             className="mt-6 bg-green-500 hover:bg-green-600 text-white"
-            variant={'transparent'}
+            variant={'secondary'}
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={!cart.shipping_methods[0]}

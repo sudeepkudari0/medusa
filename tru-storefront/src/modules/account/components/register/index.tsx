@@ -77,7 +77,7 @@ const Register = ({ setCurrentView }: Props) => {
           </LocalizedClientLink>
           .
         </span>
-        <SubmitButton className="w-full mt-6" data-testid="register-button">Join</SubmitButton>
+        <SubmitButton variant={'transparent'} className="w-full mt-6 bg-green-500 hover:bg-green-600 text-white" data-testid="register-button">Join</SubmitButton>
       </form>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
         Already a member?{" "}

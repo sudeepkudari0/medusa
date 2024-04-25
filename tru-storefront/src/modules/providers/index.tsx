@@ -2,8 +2,9 @@
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { MedusaProvider } from "medusa-react"
-// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useState } from "react"
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || "http://localhost:9000"
 
 export default function QueryClientWrapper({
   children,
@@ -15,11 +16,10 @@ export default function QueryClientWrapper({
     <QueryClientProvider client={queryClient}>
       <MedusaProvider
         queryClientProviderProps={{ client: queryClient }}
-        baseUrl="http://localhost:9000"
+        baseUrl={BACKEND_URL}
       >
         {children}
       </MedusaProvider>
-      {/* <ReactQueryDevtools initialIsOpen={false} position="bottom" /> */}
     </QueryClientProvider>
   )
 }

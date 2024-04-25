@@ -141,7 +141,7 @@ const AddAddress = ({ region }: { region: Region }) => {
               >
                 Cancel
               </Button>
-              <SubmitButton data-testid="save-button">Save</SubmitButton>
+              <SubmitButton className="bg-green-500 hover:bg-green-600 text-white" variant={'transparent'} data-testid="save-button">Save</SubmitButton>
             </div>
           </Modal.Footer>
         </form>

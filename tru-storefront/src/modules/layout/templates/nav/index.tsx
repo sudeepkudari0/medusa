@@ -100,10 +100,10 @@ export default function Nav() {
           <LocalizedClientLink className="hover:text-green-600" href="/store">
             SHOP
           </LocalizedClientLink>
-          <LocalizedClientLink className="hover:text-green-600" href="/">
+          <LocalizedClientLink className="hover:text-green-600" href="/about-us">
             ABOUT US
           </LocalizedClientLink>
-          <LocalizedClientLink className="hover:text-green-600" href="/">
+          <LocalizedClientLink className="hover:text-green-600" href="/contact-us">
             CONTACT US
           </LocalizedClientLink>
         </div>

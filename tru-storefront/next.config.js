@@ -31,7 +31,7 @@ const nextConfig = withStoreConfig({
       },
       {
         protocol: "https",
-        hostname: "https://sea-turtle-app-s9bl2.ondigitalocean.app"
+        hostname: "cdn.jsdelivr.net",
       }
     ],
   },

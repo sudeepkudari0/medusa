@@ -96,7 +96,7 @@ const Addresses = ({
                 <BillingAddress cart={cart} countryCode={countryCode} />
               </div>
             )}
-            <SubmitButton variant={'transparent'} className="mt-6 bg-green-500 hover:bg-green-600" data-testid="submit-address-button">Continue to delivery</SubmitButton>
+            <SubmitButton variant={'secondary'} className="mt-6 text-white bg-green-500 hover:bg-green-600" data-testid="submit-address-button">Continue to delivery</SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
         </form>

@@ -32,19 +32,19 @@ export default function Footer() {
           </h1>
         </div>
         <div className="flex flex-row text-sm  justify-center md:justify-start lg:justify-start mt-4">
-          <LocalizedClientLink href="/" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink href="/about-us" className=" mx-2 hover:text-yellow-500">
             About Us
           </LocalizedClientLink>
-          <LocalizedClientLink href="/" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink href="/contact-us" className=" mx-2 hover:text-yellow-500">
             Contact Us
           </LocalizedClientLink>
-          <LocalizedClientLink href="/" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink href="/returns-policy" className=" mx-2 hover:text-yellow-500">
             Returns Policy
           </LocalizedClientLink>
-          <LocalizedClientLink href="/" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink href="/privacy-statement" className=" mx-2 hover:text-yellow-500">
             Privacy Statement
           </LocalizedClientLink>
-          <LocalizedClientLink href="/" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink href="/terms-and-conditions" className=" mx-2 hover:text-yellow-500">
             Terms and Conditions
           </LocalizedClientLink>
         </div>

@@ -37,10 +37,13 @@
     "cors": "^2.8.5",
     "dotenv": "16.3.1",
     "express": "^4.17.2",
+    "medusa-file-github": "^0.0.7",
     "medusa-fulfillment-manual": "latest",
     "medusa-interfaces": "latest",
     "medusa-payment-manual": "latest",
+    "medusa-payment-razorpay": "^7.1.3",
     "medusa-payment-stripe": "latest",
+    "medusa-storage-supabase": "^0.1.7",
     "prism-react-renderer": "^2.0.4",
     "typeorm": "^0.3.16"
   },

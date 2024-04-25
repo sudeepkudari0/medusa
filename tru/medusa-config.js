@@ -1,15 +1,5 @@
 const dotenv = require("dotenv");
 
-const DB_USERNAME = process.env.DB_USERNAME
-const DB_PASSWORD = process.env.DB_PASSWORD
-const DB_HOST = process.env.DB_HOST
-const DB_PORT = process.env.DB_PORT
-const DB_DATABASE = process.env.DB_DATABASE
-
-const DATABASE_URL = 
-  `postgres://${DB_USERNAME}:${DB_PASSWORD}` + 
-  `@${DB_HOST}:${DB_PORT}/${DB_DATABASE}` || "postgres://localhost/medusa-starter-default";
-
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {
   case "production":
@@ -31,44 +21,46 @@ try {
   dotenv.config({ path: process.cwd() + "/" + ENV_FILE_NAME });
 } catch (e) {}
 
-// CORS when consuming Medusa from admin
+const DATABASE_URL =
+  `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}` +
+  `@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+
 const ADMIN_CORS =
   process.env.ADMIN_CORS || "http://localhost:7000,http://localhost:7001";
 
-// CORS to avoid issues when consuming Medusa from a client
 const STORE_CORS = process.env.STORE_CORS || "http://localhost:8000";
-
-// const DATABASE_URL =
-//   process.env.DATABASE_URL 
-
-const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
 const plugins = [
   `medusa-fulfillment-manual`,
   `medusa-payment-manual`,
   {
-    resolve: `@medusajs/file-local`,
+    resolve: `medusa-file-github`,
     options: {
-      upload_dir: "uploads",
+      owner: "sudeepkudari0",
+      repo: "medusa-storage",
+      path: "public",
+      github_token: process.env.GITHUB_TOKEN
     },
   },
   {
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
-      // only enable `serve` in development
-      // you may need to add the NODE_ENV variable
-      // manually
       serve: process.env.NODE_ENV === "development",
-      // other options...
     },
   },
   {
-    resolve: '@medusajs/file-local',
+    resolve: `medusa-payment-razorpay`,
     options: {
-      backend_url: process.env.MEDUSA_ADMIN_BACKEND_URL || "http://localhost:9000",
-    }
-  }
+      key_id: process.env.RAZORPAY_ID,
+      key_secret: process.env.RAZORPAY_SECRET,
+      razorpay_account: process.env.RAZORPAY_ACCOUNT,
+      automatic_expiry_period: 30,
+      manual_expiry_period: 20,
+      refund_speed: "normal",
+      webhook_secret: process.env.RAZORPAY_SECRET,
+    },
+  },
 ];
 
 const modules = {
@@ -104,5 +96,5 @@ module.exports = {
   modules,
   featureFlags: {
     product_categories: true,
-  }
+  },
 };

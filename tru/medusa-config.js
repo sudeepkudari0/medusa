@@ -36,8 +36,8 @@ const plugins = [
   {
     resolve: `medusa-file-github`,
     options: {
-      owner: "sudeepkudari0",
-      repo: "medusa-storage",
+      owner: process.env.GITHUB_OWNER,
+      repo: process.env.GITHUB_REPO,
       path: "public",
       github_token: process.env.GITHUB_TOKEN
     },

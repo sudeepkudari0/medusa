@@ -30,7 +30,7 @@ export default function ProductPreview({
   const router = useRouter()
 
   return (
-    <div data-testid=" w-full" className="w-auto">
+    <div data-testid=" w-full" className="w-[280px] items-center justify-center">
         <Thumbnail
           productPreview={productPreview}
           thumbnail={productPreview?.thumbnail}

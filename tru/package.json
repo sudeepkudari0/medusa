@@ -43,9 +43,18 @@
     "medusa-payment-manual": "latest",
     "medusa-payment-razorpay": "^7.1.3",
     "medusa-payment-stripe": "latest",
+    "medusa-product-ai-widget": "^0.0.4",
     "medusa-storage-supabase": "^0.1.7",
     "prism-react-renderer": "^2.0.4",
     "typeorm": "^0.3.16"
+  },
+  "overrides": {
+    "typeorm": {
+      "dotenv": "16.3.1"
+    },
+    "medusa-product-ai-widget": {
+      "dotenv": "16.3.1"
+    }
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",

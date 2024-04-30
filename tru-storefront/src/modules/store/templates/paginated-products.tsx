@@ -58,7 +58,6 @@ export default async function PaginatedProducts({
     sortBy,
     countryCode,
   })
-  console.log(products[0])
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
   return (
@@ -69,7 +68,7 @@ export default async function PaginatedProducts({
       >
         {products.map((p) => {
           return (
-            <li key={p.id}>
+            <li key={p.id} className="flex w-full items-center justify-center">
               <ProductPreview productPreview={p} region={region} />
             </li>
           )

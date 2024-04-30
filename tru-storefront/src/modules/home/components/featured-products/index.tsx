@@ -68,7 +68,7 @@ export default function FeaturedProducts({
                           (product) => product?.collection?.title === collection.title
                         )
                         .map((filteredProduct) => (
-                          <li key={filteredProduct?.id} className="w-auto">
+                          <li key={filteredProduct?.id} className="flex w-full items-center justify-center">
                             <ProductPreview
                               productPreview={filteredProduct}
                               region={region}

@@ -34,7 +34,7 @@ export default async function ProductPreview({
   })
 
   return (
-    <div data-testid=" w-full" className="w-auto">
+    <div data-testid=" w-full" className="w-[280px] mt-5 md:mt-0 lg:mt-0">
     <Thumbnail
       productPreview={pricedProduct}
       thumbnail={productPreview?.thumbnail}

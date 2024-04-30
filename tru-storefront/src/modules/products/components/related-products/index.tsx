@@ -41,7 +41,6 @@ export default async function RelatedProducts({
     }
 
     params.is_giftcard = false
-    console.log(params)
     return params
 
   }
@@ -72,9 +71,9 @@ export default async function RelatedProducts({
         </p>
       </div>
 
-      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
+      <ul className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 gap-x-[60px] small:gap-y-16">
         {productPreviews.map((productPreview) => (
-          <li key={productPreview.id} className="w-[280px]">
+          <li key={productPreview.id} className="flex w-full items-center justify-center">
             <ProductPreview region={region} productPreview={productPreview} />
           </li>
         ))}

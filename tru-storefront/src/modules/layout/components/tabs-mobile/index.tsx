@@ -24,12 +24,12 @@ export const MenuMobile = [
   },
   {
     id: 4,
-    href: "/",
+    href: "/contact-us",
     title: "CONTACT US",
   },
   {
     id: 5,
-    href: "/",
+    href: "/about-us",
     title: "ABOUT US",
   },
 ]

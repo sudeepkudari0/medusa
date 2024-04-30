@@ -10,7 +10,8 @@ export default function Footer() {
         <LocalizedClientLink
           href="/"
           className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-          data-testid="nav-store-link">
+          data-testid="nav-store-link"
+        >
           <Image
             src={
               "https://drive.google.com/uc?id=1dO0QWEuvSixKxXhQrVrjWXCh3KBz4QB4"
@@ -25,33 +26,46 @@ export default function Footer() {
       <div className="flex flex-col w-full text-md text-gray-400  items-center h-full p-4 lg:px-20">
         <div className="h-full flex items-center justify-center">
           <h1 className="text-center md:text-left lg:text-left lg:px-10">
-            Welcome to TrU Ecommerce, where the convenience of online
-            shopping meets the essence of organic living. We are dedicated to
-            bringing you a curated selection of premium organic products, all
-            available at your fingertips.
+            Welcome to TrU Ecommerce, where the convenience of online shopping
+            meets the essence of organic living. We are dedicated to bringing
+            you a curated selection of premium organic products, all available
+            at your fingertips.
           </h1>
         </div>
         <div className="flex flex-row text-sm  justify-center md:justify-start lg:justify-start mt-4">
-          <LocalizedClientLink href="/about-us" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink
+            href="/about-us"
+            className=" mx-2 hover:text-yellow-500"
+          >
             About Us
           </LocalizedClientLink>
-          <LocalizedClientLink href="/contact-us" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink
+            href="/contact-us"
+            className=" mx-2 hover:text-yellow-500"
+          >
             Contact Us
           </LocalizedClientLink>
-          <LocalizedClientLink href="/returns-policy" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink
+            href="/returns-policy"
+            className=" mx-2 hover:text-yellow-500"
+          >
             Returns Policy
           </LocalizedClientLink>
-          <LocalizedClientLink href="/privacy-statement" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink
+            href="/privacy-statement"
+            className=" mx-2 hover:text-yellow-500"
+          >
             Privacy Statement
           </LocalizedClientLink>
-          <LocalizedClientLink href="/terms-and-conditions" className=" mx-2 hover:text-yellow-500">
+          <LocalizedClientLink
+            href="/terms-and-conditions"
+            className=" mx-2 hover:text-yellow-500"
+          >
             Terms and Conditions
           </LocalizedClientLink>
         </div>
         <div>
-          <p className="mx-2 text-sm p-4">
-            © 2024 ThinkRoman Ventures LLP
-          </p>
+          <p className="mx-2 text-sm p-4">© 2024 ThinkRoman Ventures LLP</p>
         </div>
       </div>
       <div className="flex flex-col text-white justify-center items-center h-full p-4">

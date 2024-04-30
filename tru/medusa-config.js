@@ -61,6 +61,13 @@ const plugins = [
       webhook_secret: process.env.RAZORPAY_SECRET,
     },
   },
+  {
+    resolve: `medusa-product-ai-widget`,
+    options: {
+      api_key: process.env.OPENAI_API_KEY,
+      enableUI: true
+    }
+  }
 ];
 
 const modules = {

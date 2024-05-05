@@ -13,16 +13,19 @@ import { StripeCardElementOptions } from "@stripe/stripe-js"
 import Divider from "@modules/common/components/divider"
 import Spinner from "@modules/common/icons/spinner"
 import PaymentContainer from "@modules/checkout/components/payment-container"
-import { setPaymentMethod } from "@modules/checkout/actions"
+import { setPaymentMethod, setShippingMethod } from "@modules/checkout/actions"
 import { paymentInfoMap } from "@lib/constants"
 import { StripeContext } from "@modules/checkout/components/payment-wrapper"
 import { FcApproval } from "react-icons/fc"
-import { MdEdit } from "react-icons/md";
+import { MdEdit } from "react-icons/md"
+import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing"
 
 const Payment = ({
   cart,
+  availableShippingMethods,
 }: {
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
+  availableShippingMethods: PricedShippingOption[] | null
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -37,6 +40,12 @@ const Payment = ({
 
   const isStripe = cart?.payment_session?.provider_id === "stripe"
   const stripeReady = useContext(StripeContext)
+
+  // Fixing payment session to razorpay only
+  const paymentSession = cart?.payment_sessions?.find(
+    (session) => session.provider_id === "razorpay"
+  )
+  console.log("paymentSession", paymentSession)
 
   const paymentReady =
     cart?.payment_session && cart?.shipping_methods.length !== 0
@@ -70,12 +79,19 @@ const Payment = ({
 
   const set = async (providerId: string) => {
     setIsLoading(true)
-    await setPaymentMethod(providerId)
-      .catch((err) => setError(err.toString()))
-      .finally(() => {
-        if (providerId === "paypal") return
+
+    try {
+      await Promise.all([
+        setShippingMethod(availableShippingMethods?.[0]?.id || ""),
+        setPaymentMethod(providerId),
+      ])
+    } catch (err: any) {
+      setError(err.toString())
+    } finally {
+      if (providerId !== "paypal") {
         setIsLoading(false)
-      })
+      }
+    }
   }
 
   const handleChange = (providerId: string) => {
@@ -137,21 +153,19 @@ const Payment = ({
               onChange={(value: string) => handleChange(value)}
             >
               {cart.payment_sessions
-                .sort((a, b) => {
-                  return a.provider_id > b.provider_id ? 1 : -1
-                })
-                .map((paymentSession) => {
-                  return (
-                    <PaymentContainer
-                      paymentInfoMap={paymentInfoMap}
-                      paymentSession={paymentSession}
-                      key={paymentSession.id}
-                      selectedPaymentOptionId={
-                        cart.payment_session?.provider_id || null
-                      }
-                    />
-                  )
-                })}
+                .filter(
+                  (paymentSession) => paymentSession.provider_id === "razorpay"
+                )
+                .map((paymentSession) => (
+                  <PaymentContainer
+                    paymentInfoMap={paymentInfoMap}
+                    paymentSession={paymentSession}
+                    key={paymentSession.id}
+                    selectedPaymentOptionId={
+                      cart.payment_session?.provider_id || null
+                    }
+                  />
+                ))}
             </RadioGroup>
 
             {isStripe && stripeReady && (
@@ -174,13 +188,16 @@ const Payment = ({
               </div>
             )}
 
-            <ErrorMessage error={error} data-testid="payment-method-error-message" />
+            <ErrorMessage
+              error={error}
+              data-testid="payment-method-error-message"
+            />
 
             <Button
               size="large"
               className="mt-6 bg-green-500 hover:bg-green-600 text-white"
               onClick={handleSubmit}
-              variant={'secondary'}
+              variant={"secondary"}
               isLoading={isLoading}
               disabled={(isStripe && !cardComplete) || !cart.payment_session}
               data-testid="submit-payment-button"
@@ -201,7 +218,10 @@ const Payment = ({
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
                   Payment method
                 </Text>
-                <Text className="txt-medium text-ui-fg-subtle" data-testid="payment-method-summary">
+                <Text
+                  className="txt-medium text-ui-fg-subtle"
+                  data-testid="payment-method-summary"
+                >
                   {paymentInfoMap[cart.payment_session.provider_id]?.title ||
                     cart.payment_session.provider_id}
                 </Text>
@@ -217,7 +237,10 @@ const Payment = ({
                 <Text className="txt-medium-plus text-ui-fg-base mb-1">
                   Payment details
                 </Text>
-                <div className="flex gap-2 txt-medium text-ui-fg-subtle items-center" data-testid="payment-details-summary">
+                <div
+                  className="flex gap-2 txt-medium text-ui-fg-subtle items-center"
+                  data-testid="payment-details-summary"
+                >
                   <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
                     {paymentInfoMap[cart.payment_session.provider_id]?.icon || (
                       <CreditCard />

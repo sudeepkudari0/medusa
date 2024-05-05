@@ -4,6 +4,8 @@ import Spinner from "@modules/common/icons/spinner"
 import React, { useCallback, useState } from "react"
 import useRazorpay, { RazorpayOptions } from "react-razorpay"
 import { placeOrder } from "@modules/checkout/actions"
+import { useAtom } from "jotai"
+import { atoms } from "@lib/atoms/atom"
 
 export const RazorpayPaymentButton = ({
   session,
@@ -18,9 +20,11 @@ export const RazorpayPaymentButton = ({
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
   const [Razorpay] = useRazorpay();
+  const [ paymentVerification, setPaymentVerification ] = useAtom(atoms.paymentVerificationAtom)
 
   const orderData = session.data as Record<string, string>
   const onPaymentCompleted = async () => {
+    setPaymentVerification(true)
     await placeOrder().then(() => {
         setSubmitting(false)
         console.log("order placed")
@@ -38,7 +42,7 @@ export const RazorpayPaymentButton = ({
       amount: session.amount.toString(),
       order_id: orderData.id,
       currency: cart.region.currency_code.toLocaleUpperCase(),
-      name: process.env.COMPANY_NAME ?? "your company name ",
+      name: process.env.COMPANY_NAME ?? "TrU",
       description: `Order number ${orderData.id}`,
 
       image: "https://example.com/your_logo",

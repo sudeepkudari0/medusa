@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react"
 import Input from "@modules/common/components/input"
 import CountrySelect from "../country-select"
 import { Cart } from "@medusajs/medusa"
+import { useAtom } from "jotai"
+import { atoms } from "@lib/atoms/atom"
+import StateSelect from "../state-select"
+import CitySelect from "../city-select"
 
 const BillingAddress = ({
   cart,
@@ -10,6 +14,8 @@ const BillingAddress = ({
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
   countryCode: string
 }) => {
+
+  const [selectedState, setSelectedState] = useAtom(atoms.StateAtom);
   const [formData, setFormData] = useState({
     "billing_address.first_name": cart?.billing_address?.first_name || "",
     "billing_address.last_name": cart?.billing_address?.last_name || "",
@@ -42,10 +48,15 @@ const BillingAddress = ({
       HTMLInputElement | HTMLInputElement | HTMLSelectElement
     >
   ) => {
+    if (e.target.name === "billing_address.province") {
+      const { value } = e.target;
+      setSelectedState(value.split("-")[1]);
+    }
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     })
+    console.log(formData)
   }
 
   return (
@@ -95,15 +106,6 @@ const BillingAddress = ({
           required
           data-testid="billing-postal-input"
         />
-        <Input
-          label="City"
-          name="billing_address.city"
-          autoComplete="address-level2"
-          value={formData["billing_address.city"]}
-          onChange={handleChange}
-          required
-          data-testid="billing-city-input"
-        />
         <CountrySelect
           name="billing_address.country_code"
           autoComplete="country"
@@ -113,13 +115,23 @@ const BillingAddress = ({
           required
           data-testid="billing-country-select"
         />
-        <Input
-          label="State / Province"
+         <StateSelect
           name="billing_address.province"
           autoComplete="address-level1"
+          region={cart?.region}
           value={formData["billing_address.province"]}
           onChange={handleChange}
-          data-testid="billing-province-input"
+          required
+          data-testid="shipping-province-input"
+        />
+       <CitySelect
+          name="billing_address.city"
+          autoComplete="city"
+          region={cart?.region}
+          value={formData["billing_address.city"]}
+          onChange={handleChange}
+          required
+          data-testid="shipping-city-input"
         />
         <Input
           label="Phone"

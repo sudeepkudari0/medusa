@@ -22,6 +22,7 @@ import ErrorMessage from "../error-message"
 import compareAddresses from "@lib/util/compare-addresses"
 import { FcApproval } from "react-icons/fc"
 import { MdEdit } from "react-icons/md"
+import { PricedShippingOption } from "@medusajs/medusa/dist/types/pricing"
 
 const Addresses = ({
   cart,
@@ -96,7 +97,7 @@ const Addresses = ({
                 <BillingAddress cart={cart} countryCode={countryCode} />
               </div>
             )}
-            <SubmitButton variant={'secondary'} className="mt-6 text-white bg-green-500 hover:bg-green-600" data-testid="submit-address-button">Continue to delivery</SubmitButton>
+            <SubmitButton variant={'secondary'} className="mt-6 text-white bg-green-500 hover:bg-green-600" data-testid="submit-address-button">Continue to payment</SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
         </form>

@@ -5,6 +5,10 @@ import Input from "@modules/common/components/input"
 import AddressSelect from "../address-select"
 import CountrySelect from "../country-select"
 import { Container } from "@medusajs/ui"
+import StateSelect from "../state-select"
+import { useAtom } from 'jotai'
+import { atoms } from "@lib/atoms/atom"
+import CitySelect from "../city-select"
 
 const ShippingAddress = ({
   customer,
@@ -33,6 +37,8 @@ const ShippingAddress = ({
     "shipping_address.phone": cart?.shipping_address?.phone || "",
   })
 
+  const [selectedState, setSelectedState] = useAtom(atoms.StateAtom);
+
   const countriesInRegion = useMemo(
     () => cart?.region.countries.map((c) => c.iso_2),
     [cart?.region]
@@ -56,7 +62,7 @@ const ShippingAddress = ({
       "shipping_address.postal_code": cart?.shipping_address?.postal_code || "",
       "shipping_address.city": cart?.shipping_address?.city || "",
       "shipping_address.country_code":
-        cart?.shipping_address?.country_code || "",
+      cart?.shipping_address?.country_code || "IN",
       "shipping_address.province": cart?.shipping_address?.province || "",
       email: cart?.email || "",
       "shipping_address.phone": cart?.shipping_address?.phone || "",
@@ -68,6 +74,10 @@ const ShippingAddress = ({
       HTMLInputElement | HTMLInputElement | HTMLSelectElement
     >
   ) => {
+    if (e.target.name === "shipping_address.province") {
+      const { value } = e.target;
+      setSelectedState(value.split("-")[1]);
+    }
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -129,31 +139,32 @@ const ShippingAddress = ({
           required
           data-testid="shipping-postal-code-input"
         />
-        <Input
-          label="City"
-          name="shipping_address.city"
-          autoComplete="address-level2"
-          value={formData["shipping_address.city"]}
-          onChange={handleChange}
-          required
-          data-testid="shipping-city-input"
-        />
         <CountrySelect
           name="shipping_address.country_code"
           autoComplete="country"
           region={cart?.region}
-          value={formData["shipping_address.country_code"]}
+          value={"India"}
           onChange={handleChange}
           required
           data-testid="shipping-country-select"
         />
-        <Input
-          label="State / Province"
+         <StateSelect
           name="shipping_address.province"
           autoComplete="address-level1"
+          region={cart?.region}
           value={formData["shipping_address.province"]}
           onChange={handleChange}
+          required
           data-testid="shipping-province-input"
+        />
+       <CitySelect
+          name="shipping_address.city"
+          autoComplete="city"
+          region={cart?.region}
+          value={formData["shipping_address.city"]}
+          onChange={handleChange}
+          required
+          data-testid="shipping-city-input"
         />
       </div>
       <div className="my-8">

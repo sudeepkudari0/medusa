@@ -42,12 +42,12 @@ export const CategoriesDropDown = () => {
   const [isOpen, setIsOpen] = useState(false)
  
   return (
-    <div className="w-[256px]" 
+    <div className="w-auto" 
     onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}>
       <DropdownMenu modal={false} open={isOpen}>
         <DropdownMenu.Trigger
-          className="outline-none border p-[6px] flex flex-row items-center justify-center gap-4"
+          className="outline-none shadow-md border-gray-300 rounded p-[6px] flex flex-row items-center justify-center gap-4"
           onClick={() => setIsOpen(!isOpen)}
         >
           BROWSE CATEGORIES
@@ -56,7 +56,7 @@ export const CategoriesDropDown = () => {
         <DropdownMenu.Content className="z-50">
           {Categories.map((item) => (
             <LocalizedClientLink key={item.id} href={item.href}>
-              <DropdownMenu.Item className="text-[16px] font-medium border-b p-4 hover:text-green-600 hover:bg-gray-100">
+              <DropdownMenu.Item className="text-[16px] font-medium border-b p-4 hover:text-green-600 ">
                 {item.title}
               </DropdownMenu.Item>
             </LocalizedClientLink>

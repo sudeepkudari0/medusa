@@ -49,6 +49,17 @@
     "typeorm": "^0.3.16"
   },
   "overrides": {
+    "medusa-starter-default": {
+      "@medusajs/medusa": "^1.20.4"
+    },
+    "@medusajs/admin": {
+      "dependencies": {
+        "@medusajs/medusa": "^1.14.0"
+      }
+    },
+    "medusa-file-github": {
+      "@medusajs/medusa": "^1.13.1"
+    },
     "typeorm": {
       "dotenv": "16.3.1"
     },

@@ -58,7 +58,8 @@ const SearchBarLg = () => {
   const CustomDropdownIndicator = () => null
 
   return (
-    <div className="relative flex items-center pl-[200px]">
+    <div className="relative w-full flex items-center justify-center">
+      <div className="flex flex-row shadow-sm">
       <AsyncSelect
         loadOptions={loadOptions}
         placeholder="Search Products"
@@ -70,8 +71,9 @@ const SearchBarLg = () => {
         onChange={(e: any) => {
           setSelectedHandle(e.handle)
           setSearchValue(e.label)
+          router.push(`/products/${selectedHandle}`)
         }}
-        className="w-[23vw] border h-[35px] border-r-0 rounded-none border-gray-400 !outline-none"
+        className="w-[23vw] border-2 h-[35px] border-r-0 rounded-l border-gray-300 !outline-none"
         styles={{
           indicatorSeparator: () => ({ display: "none" }),
           control: () => ({
@@ -81,7 +83,7 @@ const SearchBarLg = () => {
         }}
         components={{ DropdownIndicator: CustomDropdownIndicator }}
       />
-      <Select
+      {/* <Select
         className="w-[180px] border text-sm h-[35px] rounded-none border-gray-400"
         classNamePrefix="bg-transparent"
         placeholder="Categories"
@@ -99,17 +101,15 @@ const SearchBarLg = () => {
             ":hover": { borderColor: "#aaa" },
           }),
         }}
-      />
+      /> */}
       <div
-        className="cursor-pointer h-[35px] border border-l-0 w-[40px] border-gray-400"
+        className="cursor-pointer h-[35px] border-2 border-l-0 rounded-r w-[40px] border-gray-300"
         onClick={() => {
           router.push(`/products/${selectedHandle}`)
-          // setTimeout(() => {
-          //     setSearchValue("")
-          // }, 3000)
         }}
       >
         <IconSearch />
+      </div>
       </div>
     </div>
   )

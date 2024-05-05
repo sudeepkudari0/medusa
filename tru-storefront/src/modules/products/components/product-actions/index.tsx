@@ -172,8 +172,8 @@ export default function ProductActions({
         <Button
           onClick={handleAddToCart}
           disabled={!inStock || !variant || !!disabled || isAdding}
-          variant="primary"
-          className="w-[200px] text-lg bg-green-700 !border-none !outline-none hover:bg-green-500 h-10"
+          variant="secondary"
+          className="w-[200px] text-lg text-white bg-green-700 !border-none !outline-none hover:bg-green-500 h-10"
           isLoading={isAdding}
           data-testid="add-product-button"
         >

@@ -12,7 +12,7 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/custom/thumbnail"
-import { FaCartShopping } from "react-icons/fa6";
+import { FaCartShopping } from "react-icons/fa6"
 const CartDropdown = ({
   cart: cartState,
 }: {
@@ -78,11 +78,13 @@ const CartDropdown = ({
     >
       <Popover className="relative h-full">
         <Popover.Button className="h-full">
-          <LocalizedClientLink  
+          <LocalizedClientLink
             className="hover:text-ui-fg-base text-sm flex flex-row items-center justify-center text-green-600 hover:text-green-700"
             href="/cart"
             data-testid="nav-cart-link"
-          ><FaCartShopping color="#10bb36" size={20} /> {`(${totalItems})`}</LocalizedClientLink>
+          >
+            <FaCartShopping color="#10bb36" size={20} /> {`(${totalItems})`}
+          </LocalizedClientLink>
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
@@ -204,9 +206,12 @@ const CartDropdown = ({
                     <LocalizedClientLink href="/store">
                       <>
                         <span className="sr-only">Go to all products page</span>
-                        <button 
-                      className="w-full text-md bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
-                      onClick={close}>Explore products</button>
+                        <button
+                          className="w-full text-md bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
+                          onClick={close}
+                        >
+                          Explore products
+                        </button>
                       </>
                     </LocalizedClientLink>
                   </div>

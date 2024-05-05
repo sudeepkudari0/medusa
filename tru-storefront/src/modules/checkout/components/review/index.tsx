@@ -5,6 +5,9 @@ import { Heading, Text, clx } from "@medusajs/ui"
 import PaymentButton from "../payment-button"
 import { useSearchParams } from "next/navigation"
 import { Cart } from "@medusajs/medusa"
+import { useAtom } from "jotai"
+import { atoms } from "@lib/atoms/atom"
+import VerifyingPaymentMessage from "./payment-verification-message"
 
 const Review = ({
   cart,
@@ -12,7 +15,7 @@ const Review = ({
   cart: Omit<Cart, "refundable_amount" | "refunded_total">
 }) => {
   const searchParams = useSearchParams()
-
+  const [ paymentVerification, setPaymentVerification ] = useAtom(atoms.paymentVerificationAtom)
   const isOpen = searchParams.get("step") === "review"
 
   const previousStepsCompleted =
@@ -21,6 +24,7 @@ const Review = ({
     cart.payment_session
 
   return (
+<> { paymentVerification && <VerifyingPaymentMessage /> }
     <div className="bg-white">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
@@ -51,6 +55,7 @@ const Review = ({
         </>
       )}
     </div>
+    </>
   )
 }
 
